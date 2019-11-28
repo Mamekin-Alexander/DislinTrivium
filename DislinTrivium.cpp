@@ -1,7 +1,14 @@
 ﻿#include <iostream>
 #include <discpp.h>
 #include <utility>
+
+#ifdef _WIN32
 #include <Windows.h>
+#endif
+#ifdef unix
+#include <unistd.h>
+#endif
+
 Dislin g;
 typedef std::pair<double, double> T;
 double const pi = 4 * atan(1);
@@ -78,7 +85,12 @@ void animation()
 		x = cos(2*pi*frequency*t);
 		y = sin(2*pi*frequency*t);
 		g.rlsymb(21, x, y);
+#ifdef _WIN32
 		Sleep(dt*1000);
+#endif
+#ifdef unix
+		Sleep(dt);
+#endif
 		t = t + dt;
 
 		g.endgrf();
